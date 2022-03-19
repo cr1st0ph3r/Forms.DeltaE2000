@@ -1,0 +1,407 @@
+﻿namespace Forms.DeltaE2000
+{
+
+    /// <summary>
+    /// all this code is adapted from http://www.brucelindbloom.com
+    /// </summary>
+    public struct RGB
+    {
+        /// <summary>
+        /// Gets an empty RGB structure;
+        /// </summary>
+        public static readonly RGB Empty = new RGB();
+
+        private int red;
+        private int green;
+        private int blue;
+
+        public static bool operator ==(RGB item1, RGB item2)
+        {
+            return (
+                item1.Red == item2.Red
+                && item1.Green == item2.Green
+                && item1.Blue == item2.Blue
+                );
+        }
+
+        public static bool operator !=(RGB item1, RGB item2)
+        {
+            return (
+                item1.Red != item2.Red
+                || item1.Green != item2.Green
+                || item1.Blue != item2.Blue
+                );
+        }
+
+        /// <summary>
+        /// Gets or sets red value.
+        /// </summary>
+        public int Red
+        {
+            get
+            {
+                return red;
+            }
+            set
+            {
+                red = (value > 255) ? 255 : ((value < 0) ? 0 : value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets red value.
+        /// </summary>
+        public int Green
+        {
+            get
+            {
+                return green;
+            }
+            set
+            {
+                green = (value > 255) ? 255 : ((value < 0) ? 0 : value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets red value.
+        /// </summary>
+        public int Blue
+        {
+            get
+            {
+                return blue;
+            }
+            set
+            {
+                blue = (value > 255) ? 255 : ((value < 0) ? 0 : value);
+            }
+        }
+
+        public RGB(int R, int G, int B)
+        {
+            this.red = (R > 255) ? 255 : ((R < 0) ? 0 : R);
+            this.green = (G > 255) ? 255 : ((G < 0) ? 0 : G);
+            this.blue = (B > 255) ? 255 : ((B < 0) ? 0 : B);
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null || GetType() != obj.GetType()) return false;
+
+            return (this == (RGB)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Red.GetHashCode() ^ Green.GetHashCode() ^ Blue.GetHashCode();
+        }
+    }
+    public struct CIELab
+    {
+        /// <summary>
+        /// Gets an empty CIELab structure.
+        /// </summary>
+        public static readonly CIELab Empty = new CIELab();
+
+        private double l;
+        private double a;
+        private double b;
+
+
+        public static bool operator ==(CIELab item1, CIELab item2)
+        {
+            return (
+                item1.L == item2.L
+                && item1.A == item2.A
+                && item1.B == item2.B
+                );
+        }
+
+        public static bool operator !=(CIELab item1, CIELab item2)
+        {
+            return (
+                item1.L != item2.L
+                || item1.A != item2.A
+                || item1.B != item2.B
+                );
+        }
+
+
+        /// <summary>
+        /// Gets or sets L component.
+        /// </summary>
+        public double L
+        {
+            get
+            {
+                return this.l;
+            }
+            set
+            {
+                this.l = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a component.
+        /// </summary>
+        public double A
+        {
+            get
+            {
+                return this.a;
+            }
+            set
+            {
+                this.a = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a component.
+        /// </summary>
+        public double B
+        {
+            get
+            {
+                return this.b;
+            }
+            set
+            {
+                this.b = value;
+            }
+        }
+
+        public CIELab(double l, double a, double b)
+        {
+            this.l = l;
+            this.a = a;
+            this.b = b;
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null || GetType() != obj.GetType()) return false;
+
+            return (this == (CIELab)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return L.GetHashCode() ^ a.GetHashCode() ^ b.GetHashCode();
+        }
+
+    }
+    public struct CIEXYZ
+    {
+        /// <summary>
+        /// Gets an empty CIEXYZ structure.
+        /// </summary>
+        public static readonly CIEXYZ Empty = new CIEXYZ();
+        /// <summary>
+        /// Gets the CIE D65 (white) structure.
+        /// </summary>
+        public static readonly CIEXYZ D65 = new CIEXYZ(0.9505, 1.0, 1.0890);
+
+
+        private double x;
+        private double y;
+        private double z;
+
+        public static bool operator ==(CIEXYZ item1, CIEXYZ item2)
+        {
+            return (
+                item1.X == item2.X
+                && item1.Y == item2.Y
+                && item1.Z == item2.Z
+                );
+        }
+
+        public static bool operator !=(CIEXYZ item1, CIEXYZ item2)
+        {
+            return (
+                item1.X != item2.X
+                || item1.Y != item2.Y
+                || item1.Z != item2.Z
+                );
+        }
+
+        /// <summary>
+        /// Gets or sets X component.
+        /// </summary>
+        public double X
+        {
+            get
+            {
+                return this.x;
+            }
+            set
+            {
+                this.x = (value > 0.9505) ? 0.9505 : ((value < 0) ? 0 : value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets Y component.
+        /// </summary>
+        public double Y
+        {
+            get
+            {
+                return this.y;
+            }
+            set
+            {
+                this.y = (value > 1.0) ? 1.0 : ((value < 0) ? 0 : value);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets Z component.
+        /// </summary>
+        public double Z
+        {
+            get
+            {
+                return this.z;
+            }
+            set
+            {
+                this.z = (value > 1.089) ? 1.089 : ((value < 0) ? 0 : value);
+            }
+        }
+
+        public CIEXYZ(double x, double y, double z)
+        {
+            this.x = (x > 0.9505) ? 0.9505 : ((x < 0) ? 0 : x);
+            this.y = (y > 1.0) ? 1.0 : ((y < 0) ? 0 : y);
+            this.z = (z > 1.089) ? 1.089 : ((z < 0) ? 0 : z);
+        }
+
+        public override bool Equals(Object obj)
+        {
+            if (obj == null || GetType() != obj.GetType()) return false;
+
+            return (this == (CIEXYZ)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return X.GetHashCode() ^ Y.GetHashCode() ^ Z.GetHashCode();
+        }
+
+    }
+    public static class Delta
+    {
+        private static double Fxyz(double t)
+        {
+            return ((t > 0.008856) ? Math.Pow(t, (1.0 / 3.0)) : (7.787 * t + 16.0 / 116.0));
+        }
+        public static RGB ColorToRGB(Color color)
+        {
+            return new RGB(color.R, color.G, color.B);
+        }
+        public static CIELab XYZtoLab(double x, double y, double z)
+        {
+            CIELab lab = CIELab.Empty;
+
+            lab.L = 116.0 * Fxyz(y / CIEXYZ.D65.Y) - 16;
+            lab.A = 500.0 * (Fxyz(x / CIEXYZ.D65.X) - Fxyz(y / CIEXYZ.D65.Y));
+            lab.B = 200.0 * (Fxyz(y / CIEXYZ.D65.Y) - Fxyz(z / CIEXYZ.D65.Z));
+
+            return lab;
+        }
+        public static CIEXYZ RGBtoXYZ(int red, int green, int blue)
+        {
+            // normalize red, green, blue values
+            double rLinear = (double)red / 255.0;
+            double gLinear = (double)green / 255.0;
+            double bLinear = (double)blue / 255.0;
+
+            // convert to a sRGB form
+            double r = (rLinear > 0.04045) ? Math.Pow((rLinear + 0.055) / (
+                1 + 0.055), 2.2) : (rLinear / 12.92);
+            double g = (gLinear > 0.04045) ? Math.Pow((gLinear + 0.055) / (
+                1 + 0.055), 2.2) : (gLinear / 12.92);
+            double b = (bLinear > 0.04045) ? Math.Pow((bLinear + 0.055) / (
+                1 + 0.055), 2.2) : (bLinear / 12.92);
+
+            // converts
+            return new CIEXYZ(
+                (r * 0.4124 + g * 0.3576 + b * 0.1805),
+                (r * 0.2126 + g * 0.7152 + b * 0.0722),
+                (r * 0.0193 + g * 0.1192 + b * 0.9505)
+                );
+        }
+        public static CIELab RGBtoLab(int red, int green, int blue)
+        {
+            var res = RGBtoXYZ(red, green, blue);
+            return XYZtoLab(res.X, res.Y, res.Z);
+        }
+        public static CIELab RGBtoLab(RGB rgb)
+        {
+            var res = RGBtoXYZ(rgb.Red, rgb.Green, rgb.Blue);
+            return XYZtoLab(res.X, res.Y, res.Z);
+        }
+
+        public static float DeltaE2000(System.Drawing.Color color1, System.Drawing.Color color2)
+        {
+            RGB rgb1 = Delta.ColorToRGB(color1);
+            RGB rgb2 = Delta.ColorToRGB(color2);
+            return Delta.DeltaE2000(Delta.RGBtoLab(rgb1), Delta.RGBtoLab(rgb2));
+        }
+        public static float DeltaE2000(CIELab Lab1, CIELab Lab2)
+        {
+            float kL = 1.0f;
+            float kC = 1.0f;
+            float kH = 1.0f;
+            float lBarPrime = (float)(0.5f * (Lab1.L + Lab2.L));
+            float c1 = (float)Math.Sqrt(Lab1.A * Lab1.A + Lab1.B * Lab1.B);
+            float c2 = (float)Math.Sqrt(Lab2.A * Lab2.A + Lab2.B * Lab2.B);
+            float cBar = 0.5f * (c1 + c2);
+            float cBar7 = cBar * cBar * cBar * cBar * cBar * cBar * cBar;
+            float g = 0.5f * (1.0f - (float)Math.Sqrt(cBar7 / (cBar7 + 6103515625.0)));
+            float a1Prime = (float)(Lab1.A * (1.0f + g));
+            float a2Prime = (float)(Lab2.A * (1.0f + g));
+            float c1Prime = (float)Math.Sqrt(a1Prime * a1Prime + Lab1.B * Lab1.B);
+            float c2Prime = (float)Math.Sqrt(a2Prime * a2Prime + Lab2.B * Lab2.B);
+            float cBarPrime = 0.5f * (c1Prime + c2Prime);
+            float h1Prime = (float)((Math.Atan2(Lab1.B, a1Prime) * 180.0) / Math.PI);
+            float dhPrime;
+
+            if (h1Prime < 0.0)
+                h1Prime += 360.0f;
+            float h2Prime = (float)((Math.Atan2(Lab2.B, a2Prime) * 180.0) / Math.PI);
+            if (h2Prime < 0.0)
+                h2Prime += 360.0f;
+            float hBarPrime = (float)((Math.Abs(h1Prime - h2Prime) > 180.0f) ? (0.5f * (h1Prime + h2Prime + 360.0)) : (0.5 * (h1Prime + h2Prime)));
+            float t = (float)(1.0f -
+            0.17f * Math.Cos(Math.PI * (hBarPrime - 30.0f) / 180.0f) +
+            0.24f * Math.Cos(Math.PI * (2.0f * hBarPrime) / 180.0f) +
+            0.32f * Math.Cos(Math.PI * (3.0f * hBarPrime + 6.0f) / 180.0f) -
+            0.20f * Math.Cos(Math.PI * (4.0f * hBarPrime - 63.0f) / 180.0f));
+            if (Math.Abs(h2Prime - h1Prime) <= 180.0)
+                dhPrime = h2Prime - h1Prime;
+            else
+                dhPrime = (h2Prime <= h1Prime) ? (h2Prime - h1Prime + 360.0f) : (h2Prime - h1Prime - 360.0f);
+            float dLPrime = (float)(Lab2.L - Lab1.L);
+            float dCPrime = c2Prime - c1Prime;
+            float dHPrime = (float)(2.0f * Math.Sqrt(c1Prime * c2Prime) * Math.Sin(Math.PI * (0.5f * dhPrime) / 180.0f));
+            float sL = (float)(1.0f + ((0.015f * (lBarPrime - 50.0f) * (lBarPrime - 50.0f)) / Math.Sqrt(20.0f + (lBarPrime - 50.0f) * (lBarPrime - 50.0f))));
+            float sC = 1.0f + 0.045f * cBarPrime;
+            float sH = 1.0f + 0.015f * cBarPrime * t;
+            float dTheta = (float)(30.0f * Math.Exp(-((hBarPrime - 275.0f) / 25.0f) * ((hBarPrime - 275.0f) / 25.0f)));
+            float cBarPrime7 = cBarPrime * cBarPrime * cBarPrime * cBarPrime * cBarPrime * cBarPrime * cBarPrime;
+            float rC = (float)(Math.Sqrt(cBarPrime7 / (cBarPrime7 + 6103515625.0f)));
+            float rT = (float)(-2.0f * rC * Math.Sin(Math.PI * (2.0f * dTheta) / 180.0f));
+            return (float)(Math.Sqrt(
+                               (dLPrime / (kL * sL)) * (dLPrime / (kL * sL)) +
+                               (dCPrime / (kC * sC)) * (dCPrime / (kC * sC)) +
+                               (dHPrime / (kH * sH)) * (dHPrime / (kH * sH)) +
+                               (dCPrime / (kC * sC)) * (dHPrime / (kH * sH)) * rT
+                          )
+             );
+        }
+    }
+}
